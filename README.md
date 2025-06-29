@@ -1,36 +1,32 @@
-# 📝 Task Management Application
+📘 Project Documentation – Task Management Application
+🧾 Overview
+This is a full-stack Task Management Application that allows users to:
 
-A full-stack web application that allows users to manage tasks efficiently. Users can create, edit, delete (soft delete), and filter tasks based on status, priority, and search input. Designed with a clean UI using **React (ES6)** and **Bootstrap**, and powered by **Node.js**, **Express**, and **MySQL** on the backend.
+Create, update, delete (soft delete) tasks
 
----
+Filter by status and priority
 
-## 📌 What is this project?
+Search tasks by title
 
-This is a **Task Management System** where you can:
+Use responsive UI with Bootstrap
 
-- Add tasks with details like title, description, status, priority, and due date
-- Update or delete tasks (soft delete)
-- Filter tasks by **status**, **priority**, and **search**
-- Use an **offcanvas form** for adding/updating tasks
-- See delete confirmations via a **modal**
-- Everything is responsive and built using **pure Bootstrap** without any external UI libraries like React-Bootstrap
+Perform CRUD operations via RESTful APIs
 
----
-
-## 🚀 How to Run the Project
-
-### 📁 Step 1: Clone the repository
-
-```bash
+⚙️ Setup Instructions
+1️⃣ Clone the Project
+bash
+Copy
+Edit
 git clone https://github.com/<your-username>/task_management_assessment.git
 cd task_management_assessment
-⚙️ Step 2: Setup the Backend
+2️⃣ Backend Setup (/server)
 bash
 Copy
 Edit
 cd server
 npm install
-🔐 Create a .env file inside /server:
+Create a .env file in the root of /server:
+
 env
 Copy
 Edit
@@ -39,85 +35,112 @@ DB_USER=root
 DB_PASSWORD=your_db_password
 DB_NAME=task_manager
 PORT=5000
-⚡ Run migrations:
+Run DB setup:
+
 bash
 Copy
 Edit
 npx sequelize db:create
 npx sequelize db:migrate
-▶ Start the server:
+Start backend server:
+
 bash
 Copy
 Edit
 npm start
-💻 Step 3: Setup the Frontend
+3️⃣ Frontend Setup (/client or /frontend)
 bash
 Copy
 Edit
 cd ../client
 npm install
-▶ Start the React app:
-bash
+npm start
+The frontend will be available at: http://localhost:3000
+
+📡 API Endpoints
+Base URL: http://localhost:5000/api/tasks
+
+Method	Endpoint	Description
+GET	/tasks	Fetch all tasks
+GET	/tasks/:id	Get task by ID
+POST	/tasks	Create a new task
+PUT	/tasks/:id	Update task by ID
+DELETE	/tasks/:id	Soft delete a task
+
+Request Body (POST/PUT)
+json
 Copy
 Edit
-npm start
-App will run at: http://localhost:3000
+{
+  "taskTitle": "Sample Task",
+  "taskDescription": "Description of task",
+  "taskStatus": "pending",         // or "in_progress", "completed"
+  "taskPriority": "medium",        // or "low", "high"
+  "taskDueDate": "2025-07-01"
+}
+Sample Response
+json
+Copy
+Edit
+{
+  "taskId": 1,
+  "taskTitle": "Sample Task",
+  "taskDescription": "Details...",
+  "taskStatus": "pending",
+  "taskPriority": "medium",
+  "taskDueDate": "2025-07-01"
+}
+🧩 Features
+✅ Functional Highlights
+Responsive layout (Bootstrap)
 
-🛠️ Tech Stack Used
-Frontend	Backend	Database
-React.js (ES6)	Node.js + Express	MySQL
-Context API	Sequelize ORM	Sequelize CLI
-Axios	CORS, dotenv	
-Bootstrap CSS	Jest (optional)	
+Task creation/edit form in offcanvas
 
-📚 Folder Structure
-graphql
+Confirmation modal before delete
+
+Tasks filtered by:
+
+Status: All, Pending, In Progress, Completed
+
+Priority: Low, Medium, High
+
+Search: by title
+
+🔍 Filter Behavior
+Tabs: Filter by task status
+
+Dropdown: Filter by priority
+
+Search Input: Filters task titles
+
+All filters can work together
+
+🔐 Validation Rules
+All fields required
+
+taskDueDate: must be a valid date
+
+taskTitle and taskDescription: cannot be empty
+
+Form validates on blur and submit
+
+📁 Folder Structure
+bash
 Copy
 Edit
 task_management_assessment/
-├── client/              # React frontend
-│   ├── src/
-│   │   ├── components/  # UI components
-│   │   ├── context/     # Context API for tasks
-│   │   ├── pages/       # Route-level components
-│   │   ├── utils/       # API helpers
-│   │   └── App.js
-│   └── package.json
-├── server/              # Node backend
-│   ├── config/          # DB config
-│   ├── controllers/
+├── client/                # React frontend
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── utils/
+│   └── App.js
+├── server/                # Express backend
+│   ├── config/
 │   ├── models/
 │   ├── routes/
-│   ├── server.js
-│   └── package.json
-🔌 API Endpoints
-Method	Endpoint	Description
-GET	/api/tasks	List all tasks
-GET	/api/tasks/:id	Get task by ID
-POST	/api/tasks	Create a new task
-PUT	/api/tasks/:id	Update task by ID
-DELETE	/api/tasks/:id	Soft delete a task
-
-🧪 Backend Testing (Optional)
-If you added Jest tests in the /server folder, run:
-
-bash
-Copy
-Edit
-npm test
-📸 Screenshots
-Add screenshots here (optional):
-
-scss
-Copy
-Edit
-![](screenshots/dashboard.png)
-![](screenshots/form.png)
-![](screenshots/modal.png)
+│   └── server.js
 👨‍💻 Author
 Senthilkumar Srinivasan
 📧 senthilhume4214@gmail.com
 🔗 LinkedIn
-
-📄 License
-This project is licensed under the MIT License.
