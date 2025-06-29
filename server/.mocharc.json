@@ -1,0 +1,7 @@
+{
+  "extension": ["js"],
+  "spec": ["test/**/*.test.js"],
+  "recursive": true,
+  "timeout": 2000,
+  "node-option": ["experimental-specifier-resolution=node"]
+}
