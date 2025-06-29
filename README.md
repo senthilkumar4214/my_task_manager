@@ -1,197 +1,123 @@
-# Task Management Application
+# 📝 Task Management Application
 
-This repository contains a full-stack Task Management Application developed as part of a Full-Stack Developer Assessment. The application allows users to create, read, update, delete, and filter tasks, with a responsive frontend built using React and Bootstrap, and a backend built with Node.js, Express, and MySQL (using Sequelize). The implementation includes all required features: task list, task form with validation, status filters, task details, and state management, along with a bonus feature for task priorities.
+A full-stack web application that allows users to manage tasks efficiently. Users can create, edit, delete (soft delete), and filter tasks based on status, priority, and search input. Designed with a clean UI using **React (ES6)** and **Bootstrap**, and powered by **Node.js**, **Express**, and **MySQL** on the backend.
 
-## Project Structure
+---
 
-task-management-assessment/├── backend/│   ├── config/│   │   └── dbConnection.js│   ├── models/│   │   └── Task.js│   ├── routes/│   │   └── tasks.js│   ├── package.json│   ├── server.js│   └── README.md├── frontend/│   ├── public/│   │   ├── index.html│   │   └── favicon.ico│   ├── src/│   │   ├── components/│   │   │   ├── Layout.jsx│   │   │   ├── TaskList.jsx│   │   │   ├── TaskForm.jsx│   │   │   ├── TaskDetails.jsx│   │   │   └── TaskFilters.jsx│   │   ├── context/│   │   │   └── TaskContext.jsx│   │   ├── utils/│   │   │   └── api.js│   │   ├── App.jsx│   │   ├── index.jsx│   │   └── index.css│   ├── tests/│   │   ├── TaskList.test.jsx│   │   └── TaskForm.test.jsx│   ├── .env│   ├── package.json│   └── README.md└── README.md
+## 📌 What is this project?
 
-## Features
+This is a **Task Management System** where you can:
 
-### Frontend (React with Bootstrap)
-- **Task List**: Displays tasks in a responsive grid with title, description, due date, status, and priority.
-- **Task Form**: Allows creating/editing tasks with client-side validation for title (non-empty) and due date (valid, not in the past).
-- **Filters**: Filter tasks by status (All, Pending, In Progress, Completed).
-- **Task Details**: View full task details with options to edit or delete.
-- **State Management**: Uses React Context API for global task data management.
-- **Responsive Design**: Built with Bootstrap 5 for mobile and desktop compatibility.
-- **Bonus Feature**: Task priorities (High, Medium, Low) included in the form and list.
+- Add tasks with details like title, description, status, priority, and due date
+- Update or delete tasks (soft delete)
+- Filter tasks by **status**, **priority**, and **search**
+- Use an **offcanvas form** for adding/updating tasks
+- See delete confirmations via a **modal**
+- Everything is responsive and built using **pure Bootstrap** without any external UI libraries like React-Bootstrap
 
-### Backend (Node.js with Express and MySQL)
-- **API Routes**:
-  - `POST /api/tasks`: Create a new task.
-  - `GET /api/tasks`: Fetch all tasks, filterable by status (`?status=pending`).
-  - `GET /api/tasks/:id`: Fetch task details.
-  - `PUT /api/tasks/:id`: Update a task.
-  - `DELETE /api/tasks/:id`: Delete a task.
-- **Database**: MySQL with a `tasks` table (columns: `id`, `taskTitle`, `taskDescription`, `taskStatus`, `taskPriority`, `taskDueDate`, `isDeleted`, `created_at`, `updated_at`).
-- **Validation**: Ensures non-empty title and valid due date on the server side.
+---
 
-## Prerequisites
-- **Node.js**: v16 or higher
-- **npm**: v7 or higher
-- **MySQL**: v8 or higher
-- **Git**: For cloning the repository
+## 🚀 How to Run the Project
 
-## Setup Instructions
+### 📁 Step 1: Clone the repository
 
-### Backend Setup
-1. **Navigate to the backend directory**:
-   ```bash
-   cd backend
+```bash
+git clone https://github.com/<your-username>/task_management_assessment.git
+cd task_management_assessment
+⚙️ Step 2: Setup the Backend
+bash
+Copy
+Edit
+cd server
+npm install
+🔐 Create a .env file inside /server:
+env
+Copy
+Edit
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_db_password
+DB_NAME=task_manager
+PORT=5000
+⚡ Run migrations:
+bash
+Copy
+Edit
+npx sequelize db:create
+npx sequelize db:migrate
+▶ Start the server:
+bash
+Copy
+Edit
+npm start
+💻 Step 3: Setup the Frontend
+bash
+Copy
+Edit
+cd ../client
+npm install
+▶ Start the React app:
+bash
+Copy
+Edit
+npm start
+App will run at: http://localhost:3000
 
+🛠️ Tech Stack Used
+Frontend	Backend	Database
+React.js (ES6)	Node.js + Express	MySQL
+Context API	Sequelize ORM	Sequelize CLI
+Axios	CORS, dotenv	
+Bootstrap CSS	Jest (optional)	
 
-Install dependencies:npm install
+📚 Folder Structure
+graphql
+Copy
+Edit
+task_management_assessment/
+├── client/              # React frontend
+│   ├── src/
+│   │   ├── components/  # UI components
+│   │   ├── context/     # Context API for tasks
+│   │   ├── pages/       # Route-level components
+│   │   ├── utils/       # API helpers
+│   │   └── App.js
+│   └── package.json
+├── server/              # Node backend
+│   ├── config/          # DB config
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   └── package.json
+🔌 API Endpoints
+Method	Endpoint	Description
+GET	/api/tasks	List all tasks
+GET	/api/tasks/:id	Get task by ID
+POST	/api/tasks	Create a new task
+PUT	/api/tasks/:id	Update task by ID
+DELETE	/api/tasks/:id	Soft delete a task
 
+🧪 Backend Testing (Optional)
+If you added Jest tests in the /server folder, run:
 
-Configure MySQL:
-Create a MySQL database (e.g., task_management).
-Update backend/config/dbConnection.js with your MySQL credentials:import { Sequelize } from 'sequelize';
-
-export const sequelize = new Sequelize('task_management', 'your_username', 'your_password', {
-  host: 'localhost',
-  dialect: 'mysql',
-});
-
-
-
-
-Sync the database:
-The Sequelize model (backend/models/Task.js) will automatically create the tasks table when the server starts.
-
-
-Start the backend server:node server.js
-
-
-The server runs at http://localhost:3000.
-
-
-
-Frontend Setup
-
-Navigate to the frontend directory:cd frontend
-
-
-Install dependencies:npm install
-
-
-Configure environment variables:
-Create a .env file in frontend/:REACT_APP_API_URL=http://localhost:3000/api
-
-
-
-
-Start the frontend server:npm start
-
-
-The app will be available at http://localhost:3000.
-
-
-
-Running Tests
-
-Frontend Tests:cd frontend
+bash
+Copy
+Edit
 npm test
+📸 Screenshots
+Add screenshots here (optional):
 
+scss
+Copy
+Edit
+![](screenshots/dashboard.png)
+![](screenshots/form.png)
+![](screenshots/modal.png)
+👨‍💻 Author
+Senthilkumar Srinivasan
+📧 senthilhume4214@gmail.com
+🔗 LinkedIn
 
-Tests cover TaskList and TaskForm components using Jest.
-
-
-Backend Tests (if implemented):cd backend
-npm test
-
-
-Note: Backend tests are not included in this README but can be added using Mocha/Chai.
-
-
-
-API Documentation
-Endpoints
-
-POST /api/tasks
-Body: { taskTitle: string, taskDescription: string, taskStatus: "pending" | "in_progress" | "completed", taskPriority: "low" | "medium" | "high", taskDueDate: string (YYYY-MM-DD) }
-Response: 201 Created with task object or 400 Bad Request if validation fails.
-
-
-GET /api/tasks
-Query: ?status=pending|in_progress|completed (optional)
-Response: 200 OK with array of tasks.
-
-
-GET /api/tasks/:id
-Response: 200 OK with task object or 404 Not Found.
-
-
-PUT /api/tasks/:id
-Body: Same as POST.
-Response: 200 OK with updated task or 404 Not Found.
-
-
-DELETE /api/tasks/:id
-Response: 204 No Content or 404 Not Found.
-
-
-
-Example Request
-curl -X POST http://localhost:3000/api/tasks \
--H "Content-Type: application/json" \
--d '{"taskTitle":"Complete Assessment","taskDescription":"Finish coding","taskStatus":"pending","taskPriority":"high","taskDueDate":"2025-07-01"}'
-
-Usage Guidelines
-
-Access the App:
-Open http://localhost:3000 in your browser.
-The homepage displays the task list with filtering options.
-
-
-Create a Task:
-Click "Add Task" in the navbar to access the task form.
-Enter title, description, status, priority, and due date (title and due date are required).
-
-
-Filter Tasks:
-Use the status dropdown to filter tasks by "All", "Pending", "In Progress", or "Completed".
-
-
-View/Edit/Delete:
-Click "View Details" on a task to see its full details.
-From the details page, click "Edit" to modify or "Delete" to remove the task.
-
-
-
-Responsive Design
-
-The frontend uses Bootstrap 5’s grid system and components for responsiveness:
-Task list displays as 1 column on mobile, 2 on medium screens, and 3 on large screens.
-Navbar collapses into a hamburger menu on smaller screens.
-Forms and task details are centered with a maximum width for readability.
-
-
-
-Bonus Features
-
-Task Priorities: Tasks can be assigned a priority (High, Medium, Low) via the task form, displayed in the task list.
-Note: Priority filtering is not implemented in the UI but can be added by extending the TaskFilters component and backend GET /api/tasks endpoint with a ?priority= query parameter.
-
-Testing
-
-Frontend: Unit tests for TaskList and TaskForm components verify rendering and validation logic.
-Run: npm test in frontend/.
-
-
-Backend: Tests are not included but can be implemented using Mocha/Chai for API routes.
-
-Notes
-
-Ensure the backend server is running before starting the frontend to avoid API errors.
-The backend assumes a MySQL database is configured and accessible.
-Commit history is maintained with meaningful messages (e.g., "Add task list component", "Switch to Bootstrap for styling").
-The frontend uses react-bootstrap for seamless integration with React, avoiding issues with traditional Bootstrap’s jQuery dependency.
-
-Troubleshooting
-
-Backend Errors: Check MySQL connection settings in dbConnection.js and ensure the database is running.
-Frontend Errors: Verify REACT_APP_API_URL matches the backend URL. Check browser console for API or rendering issues.
-Styling Issues: Ensure bootstrap/dist/css/bootstrap.min.css is imported in index.jsx.
-
-
+📄 License
+This project is licensed under the MIT License.
